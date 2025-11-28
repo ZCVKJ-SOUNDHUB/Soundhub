@@ -579,4 +579,40 @@
                 setTimeout(() => {
                     loader.style.display = "none";
                 }, 500); 
-     
+            }
+        });
+
+        
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (e) => {
+               
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+
+            });
+        });
+
+      
+        document.querySelectorAll('.product').forEach(product => {
+            const decreaseBtn = product.querySelector('.decrease');
+            const increaseBtn = product.querySelector('.increase');
+            const quantitySpan = product.querySelector('.quantity');
+
+            decreaseBtn.addEventListener('click', () => {
+                let currentQuantity = parseInt(quantitySpan.textContent);
+                if (currentQuantity > 1) {
+                    quantitySpan.textContent = currentQuantity - 1;
+                }
+            });
+
+            increaseBtn.addEventListener('click', () => {
+                let currentQuantity = parseInt(quantitySpan.textContent);
+                quantitySpan.textContent = currentQuantity + 1;
+            });
+        });
+    </script>
+</body>
+</html>
