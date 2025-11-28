@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZCVKJ Soundhub - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. AESTHETIC PURPLE PALETTE & GLOBAL STYLES --- */
+        :root {
+            --dark-purple: #1A0033;
+            --medium-purple: #4D1A7F;
+            --light-purple: #A66CFF;
+            --accent-glow: #F3E8FF;
+            --text-color: #E0E0E0;
+            --success-green: #38c172;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d001a; /* Very dark background */
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--light-purple);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-glow);
+        }
+
+        /* --- 2. HEADER & NAVIGATION --- */
+        header {
+            position: sticky; /* Sticky header for better UX */
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: var(--dark-purple);
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--light-purple);
+            text-shadow: 0 0 5px var(--light-purple);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: var(--medium-purple);
+            color: var(--accent-glow);
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 50%; /* If the logo is round */
+        }
+
+        /* --- 3. HERO/WELCOME SECTION --- */
+        #home {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(26, 0, 51, 0.8), rgba(77, 26, 127, 0.5)), url('hero-background.jpg'); /* Replace with a subtle sound tech image */
+            background-size: cover;
+            background-position: center;
+            border-bottom: 5px solid var(--light-purple);
+        }
+
+        #home h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--light-purple);
+        }
+
+        #home p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-color);
+        }
+
+        /* --- 4. PRODUCT SECTIONS & GRID LAYOUT --- */
+        section {
+            padding: 40px 5%;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--light-purple);
+            border-bottom: 2px solid var(--medium-purple);
+            padding-bottom: 10px;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product {
+            background: var(--dark-purple);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(166, 108, 255, 0.3);
+            border: 1px solid var(--light-purple);
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; /* Use 'contain' to ensure full image is visible, or 'cover' for a filled card */
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+            background-color: #2c0054; /* Light background for images */
+        }
+
+        .product h3 {
+            color: var(--accent-glow);
+            margin-bottom: 5px;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        /* Price Styling */
+        .product p {
+            color: var(--light-purple);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        /* --- 5. BUTTONS & CONTROLS --- */
+        .add-to-cart {
+            background-color: var(--light-purple);
+            color: var(--dark-purple);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .quantity-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quantity-controls button {
+            background-color: var(--medium-purple);
+            color: var(--accent-glow);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+            transition: background-color 0.2s;
+        }
+
+        .quantity-controls button:hover {
+            background-color: var(--light-purple);
+            color: var(--dark-purple);
+        }
+
+        .quantity {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        /* --- 6. PRELOADER (Aesthetic version from previous request) --- */
+        #pageLoader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 0, 51, 0.95); /* Darker purple backdrop */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            color: var(--light-purple);
+            font-size: 1.5rem;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            z-index: 2000; /* Ensure it's on top of everything */
+            transition: opacity 0.5s ease;
+        }
+
+        .pageSpinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid var(--medium-purple);
+            border-top: 8px solid var(--light-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 5px var(--light-purple); }
+            to { box-shadow: 0 0 20px var(--light-purple); }
+        }
+
+        /* --- 7. TOAST (Notification for Add to Cart) --- */
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: var(--success-green);
+            color: var(--dark-purple);
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 2001;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(56, 193, 114, 0.8);
+            transition: visibility 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* --- 8. RESPONSIVENESS (Mobile Adjustments) --- */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 10px;
+            }
+            
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .header-logo {
+                order: -1; /* Move logo to the left for better visual flow on mobile */
+            }
+
+            #home {
+                padding: 50px 20px;
+            }
+
+            .product-list {
+                grid-template-columns: 1fr; /* Stack products on very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="pageLoader">
+        <div class="pageSpinner"></div>
+        Diving into the soundscape...
+    </div>
+
+    <header>
+        <h1>ZCVKJ Soundhub</h1>
+        <nav>
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="checkout.html">Checkout</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="login.html">Login </a></li>    
+            </ul>
+            <img src="ZCVKJ LOGOG.png" alt="ZCVKJ Logo" class="header-logo">
+        </nav>
+    </header>
+
+    <section id="home">
+        <h2>Welcome to ZCVKJ Soundhub</h2>
+        <p>Discover the best Soundtech for immersive sound experiences. Feel the music, not the wires.</p>
+    </section>
+
+    <section id="Headphones">
+        <h2>Our Headphones</h2> 
+        <div class="product-list">
+            <div class="product" data-name="Wireless Headphones" data-price="199">
+                <img src="Headphone1.jpg" alt="Wireless Headphones">
+                <h3>Wireless Headphones</h3>
+                <p>₱1,999.00</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product" data-name="Wired Headphones - Black" data-price="129">
+                <img src="Headphone2.jpg" alt="Wired Headphones - Black">
+                <h3>Wired Headphones - Black</h3>
+                <p>₱1,299.00</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product" data-name="Gaming Headphones - White" data-price="149.99">
+                <img src="Headphone3.jpg" alt="Gaming Headphones - White">
+                <h3>Gaming Headphones - White</h3>
+                <p>₱599.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product" data-name="Wired Headphones - White" data-price="129.99">
+                <img src="Headphone4.jpg" alt="Wired Headphones - White">
+                <h3>Wired Headphones - White</h3>
+                <p>₱399.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="Airpods">
+        <h2>Our Airbuds</h2> <div class="product-list">
+            <div class="product" data-name="Airpods Pro" data-price="199.99">
+                <img src="Airpods 1.jpg" alt="Airpods Pro">
+                <h3>Pro ANC Earbuds</h3>
+                <p>₱899.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product" data-name="Airpods 2nd Gen" data-price="129.99">
+                <img src="Airpods 2.jpg" alt="Airpods 2nd Gen">
+                <h3>Standard Earbuds (2nd Gen)</h3>
+                <p>₱999.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product" data-name="Airpods 3rd Gen" data-price="139.99">
+                <img src="Airpods 3.jpg" alt="Airpods 3rd Gen">
+                <h3>Premium Earbuds (3rd Gen)</h3>
+                <p>₱1,299.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        
+            <div class="product" data-name="Airpods 3rd Gen" data-price="149.99">
+                <img src="Airpods 4.jpg" alt="Airpods 3rd Gen">
+                <h3>Sport Earbuds</h3>
+                <p>₱1,399.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="Headsets">
+        <h2>Our Wired Headsets</h2>
+        <div class="product-list">
+            <div class="product" data-name="Wired Headset - White" data-price="199.99">
+                <img src="Headset 1.jpg" alt="Wired Headset - White">
+                <h3>Wired Headset - White</h3>
+                <p>₱199.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product" data-name="Wired Headset 2nd Gen - White" data-price="129.99">
+                <img src="Headset 2.jpg" alt="Wired Headset 2nd Gen">
+                <h3>Wired Headset (2nd Gen)</h3>
+                <p>₱399.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product" data-name="Wired Headset - Black" data-price="139.99">
+                <img src="Headset 3.jpg" alt="Wired Headset - Black">
+                <h3>Wired Headset - Black</h3>
+                <p>₱199.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product" data-name="Wired Headset 2nd Gen - Black" data-price="149.99">
+                <img src="Headset 4.jpg" alt="Wired Headset 2nd Gen - Black">
+                <h3>Wired Headset (2nd Gen) - Black</h3>
+                <p>₱399.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="Speakers">
+        <h2>Our Speakers</h2>
+        <div class="product-list">
+            <div class="product" data-name="Computer Speaker - Black" data-price="199.99">
+                <img src="Speaker 1.jpg" alt="Computer Speaker - Black">
+                <h3>Studio Monitors - Black</h3>
+                <p>₱899.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product" data-name="Mini Computer Speakers - Black" data-price="129.99">
+                <img src="Speaker 2.jpg" alt="Mini Computer Speakers - Black">
+                <h3>Desktop Speakers - Black</h3>
+                <p>₱399.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product" data-name="Mini Speaker" data-price="139.99">
+                <img src="Speaker 3.jpg" alt="Mini Speaker">
+                <h3>Portable Mini Speaker</h3>
+                <p>₱499.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product" data-name="Mini Speaker 2nd Gen" data-price="149.99">
+                <img src="Speaker 4.jpg" alt="Mini Speaker 2nd Gen">
+                <h3>Portable Speaker (2nd Gen)</h3>
+                <p>₱699.99</p>
+                <div class="quantity-controls">
+                    <button class="decrease">−</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 ZCVKJ Soundhub. All rights reserved.</p>
+    </footer>
+
+    <div id="toast" class="toast">Item added to cart!</div>
+    
+   
