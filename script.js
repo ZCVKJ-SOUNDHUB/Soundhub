@@ -227,3 +227,76 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     });
 });
+
+// ===== TOGGLE BETWEEN LOGIN & SIGNUP =====
+document.getElementById('show-signup').addEventListener('click', function () {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('signup').style.display = 'block';
+});
+
+document.getElementById('show-login').addEventListener('click', function () {
+    document.getElementById('signup').style.display = 'none';
+    document.getElementById('login').style.display = 'block';
+});
+
+// ===== SIGN UP FUNCTIONALITY (localStorage) =====
+document.getElementById('signup-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById('new-username').value;
+    const password = document.getElementById('new-password').value;
+    const confirm = document.getElementById('confirm-password').value;
+
+    const status = document.getElementById('signup-status');
+
+    if (password !== confirm) {
+        status.textContent = "Passwords do not match!";
+        status.style.color = "red";
+        return;
+    }
+
+    // Save user to localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || {};
+
+    if (users[username]) {
+        status.textContent = "Username already exists!";
+        status.style.color = "red";
+        return;
+    }
+
+    users[username] = password;
+    localStorage.setItem('users', JSON.stringify(users));
+
+    status.textContent = "Account created successfully!";
+    status.style.color = "green";
+
+    // Auto switch back to login
+    setTimeout(() => {
+        document.getElementById('signup').style.display = 'none';
+        document.getElementById('login').style.display = 'block';
+    }, 1500);
+});
+
+// ===== LOGIN FUNCTIONALITY =====
+document.getElementById('login-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const status = document.getElementById('login-status');
+
+    const users = JSON.parse(localStorage.getItem('users')) || {};
+
+    if (users[username] && users[username] === password) {
+        status.textContent = "Login successful!";
+        status.style.color = "green";
+
+        localStorage.setItem('loggedInUser', username);
+
+        // Redirect example:
+        // window.location.href = "index.html";
+    } else {
+        status.textContent = "Invalid username or password.";
+        status.style.color = "red";
+    }
+});

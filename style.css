@@ -1,650 +1,262 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-    background-image: url('bg.jpg');
+/* ==========================================================================
+   ZCVKJ Soundhub — Clean consolidated style.css
+   - Single source of truth for header, auth, products, cart, loader,
+     checkout, feedback, and small components.
+   - All duplicates removed and variables centralized.
+   ========================================================================== */
+
+/* --------------------------
+   VARIABLES & RESET
+   -------------------------- */
+:root{
+  --dark-purple: #1A0033;
+  --medium-purple: #4D1A7F;
+  --light-purple: #A66CFF;
+  --accent-glow: #F3E8FF;
+  --text-color: #E0E0E0;
+  --muted-text: #cfc6de;
+  --error-red: #ff4d4d;
+  --success-green: #38c172;
+  --shadow: 0 4px 12px rgba(0,0,0,0.5);
+  --radius: 12px;
+  --max-width: 1200px;
+  --container-padding: 5%;
 }
 
-header {
-    background-color: #5d0088; 
-    color: rgb(84, 5, 129);
-    padding: 1rem;
-    text-align: center;
-    position: relative;
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+
+/* --------------------------
+   GLOBAL LAYOUT & TYPOGRAPHY
+   -------------------------- */
+body{
+  font-family: 'Poppins', 'Arial', sans-serif;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  color:var(--text-color);
+  background: linear-gradient(135deg,#0d001a,var(--dark-purple));
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-header h1 {
-    margin: 0;
+/* Basic links */
+a{color:var(--light-purple);text-decoration:none;transition:color .2s}
+a:hover{color:var(--accent-glow)}
+
+/* Simple container helper */
+.container{max-width:var(--max-width);margin:0 auto;padding:0 var(--container-padding)}
+
+/* --------------------------
+   HEADER / NAV
+   -------------------------- */
+header{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px var(--container-padding);
+  background:var(--dark-purple);
+  box-shadow:0 2px 10px rgba(0,0,0,0.35);
+  position:relative;
+  z-index:100;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0 0;
+header h1{
+  font-size:1.6rem;
+  font-weight:800;
+  color:var(--light-purple);
+  letter-spacing:1px;
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 1rem;
+nav ul{list-style:none;display:flex;gap:20px;align-items:center}
+nav a{color:var(--accent-glow);font-weight:500;padding:6px 10px;border-radius:6px}
+nav a:hover{background:var(--medium-purple);color:var(--light-purple)}
+
+/* header action buttons (login, cart) */
+.header-actions{display:flex;align-items:center;gap:12px}
+#login-btn{
+  background:#fff;color:#6a0dad;border:none;padding:.5rem 1rem;border-radius:6px;cursor:pointer;
+}
+.cart-icon{position:relative;cursor:pointer}
+#cart-count{
+  position:absolute;top:-8px;right:-8px;background:#ff3b3b;color:#fff;border-radius:50%;
+  padding:.15rem .45rem;font-size:.75rem;font-weight:700;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
+/* --------------------------
+   LOADER / PRELOADER
+   -------------------------- */
+#loader{
+  --preloader-bg: #1A0033d0;
+  position:fixed;left:0;top:0;width:100%;height:100%;
+  display:flex;justify-content:center;align-items:center;flex-direction:column;
+  gap:20px;background:var(--preloader-bg);color:var(--light-purple);
+  font-weight:600;backdrop-filter:blur(6px);z-index:9999;opacity:0;pointer-events:none;
+  transition:opacity .25s ease;
+}
+#loader.show{opacity:1;pointer-events:auto}
+.spinner{
+  width:72px;height:72px;border:8px solid var(--medium-purple);border-top:8px solid var(--light-purple);
+  border-radius:50%;animation:spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes glow{from{box-shadow:0 0 5px var(--light-purple)}to{box-shadow:0 0 20px var(--light-purple)}}
+
+/* --------------------------
+   AUTH (LOGIN / SIGNUP) STYLES
+   -------------------------- */
+.auth-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-grow:1;
+  padding:40px var(--container-padding);
 }
 
-.header-actions {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    display: flex;
-    align-items: center;
+.auth-card{
+  width:100%;
+  max-width:420px;
+  background:var(--dark-purple);
+  border:1px solid var(--medium-purple);
+  padding:36px;
+  border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(166,108,255,0.08);
 }
 
-#login-btn {
-    background-color: white;
-    color: #6a0dad;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-right: 1rem;
+.auth-card h2{
+  font-size:1.9rem;color:var(--light-purple);text-align:center;margin-bottom:18px;font-weight:700;
 }
 
-.cart-icon {
-    position: relative;
-    cursor: pointer;
+.form-label{display:block;margin:12px 0 6px;color:var(--muted-text);font-weight:600}
+.input{
+  width:100%;padding:12px;border:1px solid var(--medium-purple);border-radius:8px;
+  background:#2c0054;color:var(--accent-glow);font-size:1rem;
+  transition:box-shadow .2s, border-color .2s;
+}
+.input:focus{outline:none;border-color:var(--light-purple);box-shadow:0 0 8px var(--light-purple)}
+
+.primary-btn{
+  display:inline-block;width:100%;padding:12px 16px;border-radius:50px;border:none;
+  background:var(--light-purple);color:var(--dark-purple);font-weight:700;font-size:1.05rem;cursor:pointer;
+  margin-top:20px;transition:transform .1s ease, background .15s;
+}
+.primary-btn:hover{transform:translateY(-2px);background:var(--accent-glow)}
+
+.status{margin-top:14px;text-align:center;font-weight:600;color:var(--success-green);opacity:1;transition:opacity .25s}
+
+/* --------------------------
+   PRODUCT LIST / CARDS
+   -------------------------- */
+.section{padding:40px var(--container-padding)}
+.section h3{color:var(--light-purple);margin-bottom:18px;font-size:1.4rem}
+
+.product-list{
+  display:flex;flex-wrap:wrap;gap:20px;justify-content:center;
+}
+.product{
+  width:220px;background:linear-gradient(180deg,#2a004b,#3a045f);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.03);
+  box-shadow:var(--shadow);text-align:center;color:var(--accent-glow);
+}
+.product img{width:100%;height:auto;border-radius:6px;margin-bottom:10px}
+.product h4{margin:6px 0;font-size:1rem}
+.add-to-cart{
+  width:100%;padding:8px;border-radius:8px;border:none;background:var(--medium-purple);color:var(--accent-glow);
+  cursor:pointer;font-weight:700;margin-top:8px;
+}
+.add-to-cart:hover{background:var(--light-purple);color:var(--dark-purple)}
+
+/* --------------------------
+   CART / CART MODAL
+   -------------------------- */
+/* Minimal modal layout */
+.modal{display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.45);z-index:1200;justify-content:center;align-items:center;padding:20px}
+.modal.show{display:flex}
+.modal-content{
+  width:100%;max-width:480px;background:#fff;border-radius:12px;padding:18px;box-shadow:var(--shadow);color:#222;
+}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.close{font-size:20px;color:#666;cursor:pointer}
+.close:hover{color:#000}
+
+/* cart items */
+#cart-items{margin-bottom:12px;max-height:320px;overflow:auto;padding-right:6px}
+.cart-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eee}
+.cart-item strong{font-weight:700}
+.remove-item{color:var(--error-red);cursor:pointer}
+
+/* quantity */
+.quantity-controls{display:flex;align-items:center;gap:10px}
+.quantity-controls button{width:30px;height:30px;border-radius:6px;border:none;background:var(--medium-purple);color:#fff;cursor:pointer;font-size:16px}
+.quantity{font-weight:700;font-size:16px;padding:0 8px}
+
+/* checkout button */
+#checkout-btn{width:100%;padding:10px;border-radius:8px;border:none;background:var(--medium-purple);color:var(--accent-glow);cursor:pointer}
+#checkout-btn:hover{background:var(--light-purple);color:var(--dark-purple)}
+
+/* --------------------------
+   CHECKOUT STYLES
+   -------------------------- */
+#checkout-main{display:flex;justify-content:center;align-items:center;padding:40px var(--container-padding);flex-grow:1}
+.checkout-container{
+  width:100%;max-width:560px;background:var(--dark-purple);padding:32px;border-radius:var(--radius);border:1px solid var(--medium-purple);
+  box-shadow:0 10px 30px rgba(166,108,255,0.08);
+}
+.checkout-container h2{color:var(--light-purple);text-align:center;margin-bottom:20px}
+#checkout-form label{display:block;margin-top:10px;margin-bottom:6px;color:var(--muted-text);font-weight:600}
+#checkout-form input{width:100%;padding:12px;border-radius:8px;border:1px solid var(--medium-purple);background:#2c0054;color:var(--accent-glow)}
+.card-details{display:flex;gap:14px}
+.card-details>div{flex:1}
+#confirm-btn{width:100%;padding:12px;border-radius:50px;border:none;background:var(--light-purple);color:var(--dark-purple);font-weight:700;cursor:pointer;margin-top:18px}
+#confirm-btn:hover{background:var(--accent-glow)}
+
+/* --------------------------
+   FEEDBACK STYLES
+   -------------------------- */
+#feedback-main{display:flex;justify-content:center;align-items:flex-start;padding:40px var(--container-padding);flex-grow:1}
+.feedback-container{width:100%;max-width:640px;background:var(--dark-purple);padding:32px;border-radius:var(--radius);border:1px solid var(--medium-purple)}
+.feedback-container h2{color:var(--light-purple);text-align:center;margin-bottom:12px}
+#feedback-form label{margin-top:12px;margin-bottom:6px;color:var(--muted-text);font-weight:600}
+#feedback-form input,#feedback-form textarea{width:100%;padding:12px;border-radius:8px;border:1px solid var(--medium-purple);background:#2c0054;color:var(--accent-glow)}
+#feedback-form textarea{min-height:120px;resize:vertical}
+#feedback-form button{width:100%;padding:12px;border-radius:50px;border:none;background:var(--light-purple);color:var(--dark-purple);font-weight:700;margin-top:18px}
+#feedback-form button:hover{background:var(--accent-glow)}
+
+/* --------------------------
+   SMALL COMPONENTS & UTILITIES
+   -------------------------- */
+.section-hr{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);margin:18px 0;border-radius:2px}
+.center{text-align:center}
+.muted{color:var(--muted-text)}
+.card{background:rgba(255,255,255,0.02);border-radius:10px;padding:12px}
+
+/* --------------------------
+   FOOTER
+   -------------------------- */
+footer{
+  width:100%;padding:16px var(--container-padding);background:var(--dark-purple);color:var(--medium-purple);text-align:center;border-top:1px solid var(--medium-purple);margin-top:auto
 }
 
-#cart-count {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background-color: red;
-    color: rgb(100, 1, 139);
-    border-radius: 50%;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.8rem;
+/* --------------------------
+   RESPONSIVE
+   -------------------------- */
+@media (max-width:900px){
+  .product-list{justify-content:center}
+  .card-details{flex-direction:column}
+  nav ul{gap:12px}
+  header h1{font-size:1.25rem}
 }
 
-section {
-    padding: 2rem;
-    text-align: center;
+@media (max-width:550px){
+  .auth-card{padding:22px;border-radius:10px}
+  .container{padding:0 3%}
+  .product{width:46%}
+  .product-list{gap:12px}
+  .checkout-container,.feedback-container{padding:20px}
 }
 
-.product-list {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.product {
-    background-color: rgb(145, 5, 226);
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    margin: 1rem;
-    width: 200px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.product img {
-    width: 100%;
-    height: auto;
-}
-
-.add-to-cart {
-    background-color: #6a0dad; 
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 100%;
-}
-
-.add-to-cart:hover {
-    background-color: #a279cd;
-    ;
-}
-
-footer {
-    background-color: #6a0dad; 
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 8px;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover {
-    color: black;
-}
-
-#login-form {
-    display: flex;
-    flex-direction: column;
-}
-
-#login-form input {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-}
-
-#login-form button {
-    background-color: #6a0dad;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
-}
-
-#cart-items {
-    margin-bottom: 1rem;
-}
-
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-}
-
-.remove-item {
-    color: red;
-    cursor: pointer;
-}
-
-#checkout-btn {
-    background-color: #6a0dad;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
-    width: 100%;
-}
-
-
-
-
-
-
-
-    .quantity-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0.5rem 0;
-      gap: 10px;
-    }
-
-    .quantity-controls button {
-      background-color: #6a0dad;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    .quantity {
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-   
- body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-
- header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      background: #4b2e83;
-      color: white;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .header-logo {
-      width: 50px;
-      height: auto;
-    }
-    #pageLoader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000000d0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      gap: 15px;
-      color: white;
-      z-index: 1000;
-    }
-
-    .pageSpinner {
-      width: 30px;
-      height: 30px;
-      border: 6px solid #7a06da70;
-      border-top: 6px solid rgb(31, 13, 13);
-      border-radius: 50%;
-      animation: spin 5ms linear infinite;
-    }
-
-
-
-:root {
-    --dark-purple: #1A0033;
-    --medium-purple: #4D1A7F;
-    --light-purple: #A66CFF;
-    --accent-glow: #F3E8FF;
-    --text-color: #E0E0E0;
-    --error-red: #ff4d4d;
-    --success-green: #38c172;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    --radius: 12px;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    /* Gradient background similar to welcome page */
-    background: linear-gradient(135deg, #0d001a, var(--dark-purple));
-    color: var(--text-color);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-a {
-    text-decoration: none;
-    color: var(--light-purple);
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: var(--accent-glow);
-}
-
-
-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 5%;
-    background: var(--dark-purple);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-}
-
-header h1 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--light-purple);
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-}
-
-nav a {
-    font-weight: 500;
-    padding: 5px 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-nav a:hover {
-    background-color: var(--medium-purple);
-    color: var(--accent-glow);
-}
-
-
-#login {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-#login h2 {
-    font-size: 2.2rem;
-    color: var(--light-purple);
-    margin-bottom: 30px;
-    font-weight: 700;
-    text-align: center;
-}
-
-#login-form {
-    background: var(--dark-purple);
-    padding: 40px;
-    border-radius: var(--radius);
-    box-shadow: 0 10px 30px rgba(166, 108, 255, 0.2);
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--medium-purple);
-}
-
-/* Input and Label Styling */
-#login-form label {
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: var(--text-color);
-}
-
-#login-form input {
-    padding: 12px;
-    border: 1px solid var(--medium-purple);
-    border-radius: 6px;
-    background-color: #2c0054;
-    color: var(--accent-glow);
-    font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#login-form input:focus {
-    border-color: var(--light-purple);
-    outline: none;
-    box-shadow: 0 0 8px var(--light-purple);
-}
-
-
-#login-form button {
-    background-color: var(--light-purple);
-    color: var(--dark-purple);
-    border: none;
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 30px;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-#login-form button:hover {
-    background-color: var(--accent-glow);
-    transform: translateY(-2px);
-}
-
-
-#login-status {
-    margin-top: 20px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--success-green);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
- :root {
-            /* Define Aesthetic Purple Palette */
-            --dark-purple: #1A0033;
-            --medium-purple: #4D1A7F;
-            --light-purple: #A66CFF;
-            --accent-glow: #F3E8FF;
-            --preloader-bg: #1A0033d0;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            /* Enhanced Purple Gradient with more depth */
-            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--medium-purple) 100%);
-            font-family: 'Poppins', sans-serif; /* Use the imported aesthetic font */
-            color: var(--accent-glow);
-            overflow: hidden;
-            transition: background 0.5s ease;
-        }
-
-        .logo-container {
-            text-align: center;
-        }
-
-        .logo {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 800; /* Extra bold for impact */
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px var(--light-purple); /* Subtle glow effect */
-            opacity: 0;
-            animation: fadeIn 2s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother animation curve */
-            cursor: pointer;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-            color: var(--light-purple); /* Highlight on hover */
-        }
-        
-        .slogan {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            font-weight: 300;
-            color: var(--light-purple);
-            margin-top: 10px;
-            opacity: 0;
-            animation: fadeIn 2.5s 0.3s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Delayed fade-in */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--preloader-bg); 
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 20px;
-            color: var(--light-purple);
-            font-size: 1.5rem;
-            font-weight: 600;
-            backdrop-filter: blur(8px); 
-            transition: opacity 0.5s ease;
-        }
-
-        .spinner {
-            width: 80px;
-            height: 80px;
-            border: 8px solid var(--medium-purple);
-            border-top: 8px solid var(--light-purple);
-            border-radius: 50%;
-            animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        @keyframes glow {
-            from { box-shadow: 0 0 5px var(--light-purple); }
-            to { box-shadow: 0 0 20px var(--light-purple); }
-        }
-
-
-
-    /* --- Checkout Page Specific Styles (Add these to your existing style.css) --- */
-
-/* --- Layout --- */
-#checkout-main {
-    flex-grow: 1; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-}
-
-.checkout-container {
-    background: var(--dark-purple);
-    padding: 40px;
-    border-radius: var(--radius);
-    box-shadow: 0 10px 30px rgba(166, 108, 255, 0.2);
-    width: 100%;
-    max-width: 500px;
-    border: 1px solid var(--medium-purple);
-}
-
-.checkout-container h2 {
-    font-size: 2rem;
-    color: var(--light-purple);
-    margin-bottom: 25px;
-    text-align: center;
-    font-weight: 700;
-}
-
-/* --- Form Elements --- */
-#checkout-form h3 {
-    color: var(--accent-glow);
-    margin: 20px 0 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dashed var(--medium-purple);
-}
-
-#checkout-form label {
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: var(--text-color);
-}
-
-#checkout-form input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--medium-purple);
-    border-radius: 6px;
-    background-color: #2c0054;
-    color: var(--accent-glow);
-    font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#checkout-form input:focus {
-    border-color: var(--light-purple);
-    outline: none;
-    box-shadow: 0 0 8px var(--light-purple);
-}
-
-
-.card-details {
-    display: flex;
-    gap: 20px;
-}
-
-.card-details > div {
-    flex: 1;
-}
-
-
-#confirm-btn {
-    width: 100%;
-    background-color: var(--light-purple);
-    color: var(--dark-purple);
-    border: none;
-    padding: 15px 20px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 30px;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-#confirm-btn:hover {
-    background-color: var(--accent-glow);
-    transform: translateY(-2px);
-}
-
-
-@media (max-width: 550px) {
-    .checkout-container {
-        padding: 30px 20px;
-    }
-    .card-details {
-        flex-direction: column;
-        gap: 0;
-    }
-    .card-details > div {
-        margin-bottom: 10px;
-    }
-}
+/* --------------------------
+   ACCESSIBILITY / TRANSITIONS
+   -------------------------- */
+:focus{outline:3px solid rgba(166,108,255,0.12);outline-offset:2px}
+button, .primary-btn, .add-to-cart, #checkout-btn{transition:all .12s ease}
