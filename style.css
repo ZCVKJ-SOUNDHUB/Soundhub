@@ -260,3 +260,223 @@ footer{
    -------------------------- */
 :focus{outline:3px solid rgba(166,108,255,0.12);outline-offset:2px}
 button, .primary-btn, .add-to-cart, #checkout-btn{transition:all .12s ease}
+
+/* GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f7f4fb;
+}
+
+/* HEADER */
+header {
+    background: #6a0dad;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+:root {
+    --dark-purple: #1A0033;
+    --medium-purple: #4D1A7F;
+    --light-purple: #A66CFF;
+    --accent-glow: #F3E8FF;
+    --text-color: #E0E0E0;
+    --success-green: #38c172;
+    --shadow: 0 4px 12px rgba(0,0,0,0.2);
+    --radius: 8px;
+}
+
+/* GENERAL */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--dark-purple);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: var(--dark-purple);
+}
+
+header h1 {
+    color: var(--light-purple);
+}
+
+header nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    margin-left: 1rem;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: var(--accent-glow);
+}
+
+/* ----------- ABOUT SECTION ----------- */
+.bigContainer {
+    width: 100%;
+    padding: 3rem 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+
+.Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6rem;
+}
+
+.Container img.mainImg {
+    width: 45%;
+    max-width: 450px;
+}
+
+.allText {
+    max-width: 450px;
+}
+
+.headingText {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--light-purple);
+    margin-bottom: 0.5rem;
+}
+
+.subHeadingText {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--accent-glow);
+}
+
+.description {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.explore {
+    padding: 0.6rem 1.2rem;
+    background-color: var(--medium-purple);
+    color: var(--accent-glow);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.bottomContainer {
+    flex-direction: row-reverse;
+}
+
+@media (max-width: 900px) {
+    .Container,
+    .bottomContainer {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    .Container img.mainImg {
+        width: 80%;
+    }
+}
+
+/* ----------- FEEDBACK FORM ----------- */
+.feedback-container {
+    background-color: var(--dark-purple);
+    max-width: 600px;
+    margin: 2rem auto 4rem auto;
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.feedback-container h2 {
+    text-align: center;
+    color: var(--light-purple);
+    margin-bottom: 1rem;
+}
+
+.intro-text {
+    text-align: center;
+    color: var(--accent-glow);
+    margin-bottom: 2rem;
+}
+
+#feedback-form label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+#feedback-form input,
+#feedback-form textarea {
+    width: 100%;
+    margin-top: 0.3rem;
+    padding: 0.8rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--medium-purple);
+    background-color: var(--dark-purple);
+    color: var(--text-color);
+}
+
+#feedback-form button {
+    margin-top: 1.5rem;
+    width: 100%;
+    background-color: var(--medium-purple);
+    color: var(--accent-glow);
+    border: none;
+    padding: 0.9rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#feedback-form button:hover {
+    background-color: var(--light-purple);
+    color: var(--dark-purple);
+}
+
+.status-message {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--success-green);
+}
+
+
+
+
+
