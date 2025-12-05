@@ -61,20 +61,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ====== ADD-TO-CART BUTTONS (with quantity) ======
-  const addToCartButtons = document.querySelectorAll('.add-to-cart');
-
-  addToCartButtons.forEach(button => {
+  document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
       const product = button.closest('.product');
       const name = product.dataset.name;
-      const price = parseFloat(product.dataset.price);
+      const price = parseFloat(product.dataset.price.replace(/,/g, ''));
       const quantityElement = product.querySelector('.quantity');
       const quantity = parseInt(quantityElement?.textContent || 1);
 
-      // Check if already in cart
       const existingItem = cart.find(item => item.name === name);
       if (existingItem) {
-        existingItem.quantity += quantity; // accumulate quantity
+        existingItem.quantity += quantity;
         showToast(`Updated quantity: ${existingItem.quantity} × ${name}`);
       } else {
         cart.push({ name, price, quantity });
@@ -84,10 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
       saveCart();
       updateCartCount();
 
-      // Reset quantity to 1 after adding to cart
-      if (quantityElement) {
-        quantityElement.textContent = '1';
-      }
+      if (quantityElement) quantityElement.textContent = '1';
     });
   });
 
@@ -142,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       alert('Payment successful! Thank you for shopping with ZCVKJ Soundhub.');
       localStorage.removeItem('cart');
-      window.location.href = 'index.html';
+      window.location.href = 'homepage.html';
     });
   }
 
@@ -151,9 +145,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if (feedbackForm) {
     feedbackForm.addEventListener('submit', e => {
       e.preventDefault();
-      document.getElementById('feedback-status').textContent =
-        'Thank you for your feedback!';
-      feedbackForm.reset();
+      const feedbackStatus = document.getElementById('feedback-status');
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+      feedbacks.push({ name, email, subject, message, date: new Date().toISOString() });
+      localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+
+      feedbackStatus.textContent = "Thank you for your feedback! We will get back to you soon.";
+      feedbackStatus.style.opacity = '1';
+      feedbackStatus.style.color = 'var(--success-green)';
+
+      setTimeout(() => {
+        feedbackForm.reset();
+        setTimeout(() => feedbackStatus.style.opacity = '0', 3000);
+      }, 500);
     });
   }
 
@@ -166,137 +176,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateCartCount();
 });
-document.getElementById('login-form').addEventListener('submit', e => {
+
+// ===== LOGIN FORM DUPLICATES HANDLING ======
+const loginFormExtra = document.getElementById('login-form');
+if (loginFormExtra) {
+  loginFormExtra.addEventListener('submit', e => {
     e.preventDefault();
     const username = document.getElementById('username').value;
-    
-   
     const statusElement = document.getElementById('login-status');
     statusElement.textContent = 'Login successful! Welcome, ' + username + '.';
     statusElement.style.opacity = '1';
-    
     localStorage.setItem('loggedInUser', username);
-    
- 
-    setTimeout(() => {
-        
-        location.href = 'homepage.html'; 
-    }, 1500); 
+    setTimeout(() => { location.href = 'homepage.html'; }, 1500);
+  });
+}
+
+// ====== TOGGLE BETWEEN LOGIN & SIGNUP ======
+document.getElementById('show-signup')?.addEventListener('click', function () {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('signup').style.display = 'block';
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const feedbackForm = document.getElementById('feedback-form');
-    const feedbackStatus = document.getElementById('feedback-status');
-
-    feedbackForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // 1. Capture Form Data
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
-
-        // 2. Load existing feedback or initialize empty array
-        let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
-        
-        // 3. Add new feedback entry
-        feedbacks.push({ 
-            name, 
-            email, 
-            subject, 
-            message, 
-            date: new Date().toISOString() 
-        });
-        
-        // 4. Save updated feedback list to local storage
-        localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
-
-        // 5. Display success message
-        feedbackStatus.textContent = "Thank you for your feedback! We will get back to you soon.";
-        feedbackStatus.style.opacity = '1';
-        feedbackStatus.style.color = 'var(--success-green)'; // Ensure success color is applied
-
-        // 6. Reset the form after a short delay
-        setTimeout(() => {
-            feedbackForm.reset();
-            // Optional: Hide status message after successful reset
-            setTimeout(() => {
-                feedbackStatus.style.opacity = '0';
-            }, 3000); 
-        }, 500);
-    });
+document.getElementById('show-login')?.addEventListener('click', function () {
+  document.getElementById('signup').style.display = 'none';
+  document.getElementById('login').style.display = 'block';
 });
 
-// ===== TOGGLE BETWEEN LOGIN & SIGNUP =====
-document.getElementById('show-signup').addEventListener('click', function () {
-    document.getElementById('login').style.display = 'none';
-    document.getElementById('signup').style.display = 'block';
-});
+// ====== SIGN UP FUNCTIONALITY ======
+document.getElementById('signup-form')?.addEventListener('submit', function (e) {
+  e.preventDefault();
 
-document.getElementById('show-login').addEventListener('click', function () {
+  const username = document.getElementById('new-username').value;
+  const password = document.getElementById('new-password').value;
+  const confirm = document.getElementById('confirm-password').value;
+  const status = document.getElementById('signup-status');
+
+  if (password !== confirm) {
+    status.textContent = "Passwords do not match!";
+    status.style.color = "red";
+    return;
+  }
+
+  const users = JSON.parse(localStorage.getItem('users')) || {};
+  if (users[username]) {
+    status.textContent = "Username already exists!";
+    status.style.color = "red";
+    return;
+  }
+
+  users[username] = password;
+  localStorage.setItem('users', JSON.stringify(users));
+
+  status.textContent = "Account created successfully!";
+  status.style.color = "green";
+
+  setTimeout(() => {
     document.getElementById('signup').style.display = 'none';
     document.getElementById('login').style.display = 'block';
+  }, 1500);
 });
 
-// ===== SIGN UP FUNCTIONALITY (localStorage) =====
-document.getElementById('signup-form').addEventListener('submit', function (e) {
-    e.preventDefault();
+// ====== LOGIN FUNCTIONALITY ======
+document.getElementById('login-form')?.addEventListener('submit', function (e) {
+  e.preventDefault();
 
-    const username = document.getElementById('new-username').value;
-    const password = document.getElementById('new-password').value;
-    const confirm = document.getElementById('confirm-password').value;
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const status = document.getElementById('login-status');
 
-    const status = document.getElementById('signup-status');
-
-    if (password !== confirm) {
-        status.textContent = "Passwords do not match!";
-        status.style.color = "red";
-        return;
-    }
-
-    // Save user to localStorage
-    const users = JSON.parse(localStorage.getItem('users')) || {};
-
-    if (users[username]) {
-        status.textContent = "Username already exists!";
-        status.style.color = "red";
-        return;
-    }
-
-    users[username] = password;
-    localStorage.setItem('users', JSON.stringify(users));
-
-    status.textContent = "Account created successfully!";
+  const users = JSON.parse(localStorage.getItem('users')) || {};
+  if (users[username] && users[username] === password) {
+    status.textContent = "Login successful!";
     status.style.color = "green";
-
-    // Auto switch back to login
-    setTimeout(() => {
-        document.getElementById('signup').style.display = 'none';
-        document.getElementById('login').style.display = 'block';
-    }, 1500);
-});
-
-// ===== LOGIN FUNCTIONALITY =====
-document.getElementById('login-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const status = document.getElementById('login-status');
-
-    const users = JSON.parse(localStorage.getItem('users')) || {};
-
-    if (users[username] && users[username] === password) {
-        status.textContent = "Login successful!";
-        status.style.color = "green";
-
-        localStorage.setItem('loggedInUser', username);
-
-        // Redirect example:
-        // window.location.href = "index.html";
-    } else {
-        status.textContent = "Invalid username or password.";
-        status.style.color = "red";
-    }
+    localStorage.setItem('loggedInUser', username);
+  } else {
+    status.textContent = "Invalid username or password.";
+    status.style.color = "red";
+  }
 });

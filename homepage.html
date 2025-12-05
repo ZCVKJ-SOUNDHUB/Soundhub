@@ -89,15 +89,15 @@
         .header-logo {
             width: 40px;
             height: 40px;
-            object-fit: contain;
-            border-radius: 50%; /* If the logo is round */
+            object-fit: contain; /* Logo sizing */
+            border-radius: 50%;
         }
 
         /* --- 3. HERO/WELCOME SECTION --- */
         #home {
             text-align: center;
             padding: 80px 20px;
-            background: linear-gradient(rgba(26, 0, 51, 0.8), rgba(77, 26, 127, 0.5)), url('hero-background.jpg'); /* Replace with a subtle sound tech image */
+            background: linear-gradient(rgba(26, 0, 51, 0.8), rgba(77, 26, 127, 0.5)), url('hero-background.jpg'); 
             background-size: cover;
             background-position: center;
             border-bottom: 5px solid var(--light-purple);
@@ -153,10 +153,10 @@
         .product img {
             width: 100%;
             height: 200px;
-            object-fit: contain; /* Use 'contain' to ensure full image is visible, or 'cover' for a filled card */
+            object-fit: contain;
             border-radius: var(--radius);
             margin-bottom: 15px;
-            background-color: #2c0054; /* Light background for images */
+            background-color: #2c0054;
         }
 
         .product h3 {
@@ -166,7 +166,6 @@
             font-size: 1.2rem;
         }
         
-        /* Price Styling */
         .product p {
             color: var(--light-purple);
             font-size: 1.5rem;
@@ -226,14 +225,14 @@
             color: var(--text-color);
         }
 
-        /* --- 6. PRELOADER (Aesthetic version from previous request) --- */
+        /* --- 6. PRELOADER --- */
         #pageLoader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 0, 51, 0.95); /* Darker purple backdrop */
+            background: rgba(26, 0, 51, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -243,7 +242,7 @@
             font-size: 1.5rem;
             font-weight: 600;
             backdrop-filter: blur(5px);
-            z-index: 2000; /* Ensure it's on top of everything */
+            z-index: 2000;
             transition: opacity 0.5s ease;
         }
 
@@ -265,7 +264,7 @@
             to { box-shadow: 0 0 20px var(--light-purple); }
         }
 
-        /* --- 7. TOAST (Notification for Add to Cart) --- */
+        /* --- 7. TOAST --- */
         .toast {
             visibility: hidden;
             min-width: 250px;
@@ -291,7 +290,7 @@
             opacity: 1;
         }
 
-        /* --- 8. RESPONSIVENESS (Mobile Adjustments) --- */
+        /* --- 8. RESPONSIVENESS --- */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
@@ -314,7 +313,7 @@
             }
 
             .header-logo {
-                order: -1; /* Move logo to the left for better visual flow on mobile */
+                order: -1;
             }
 
             #home {
@@ -322,36 +321,37 @@
             }
 
             .product-list {
-                grid-template-columns: 1fr; /* Stack products on very small screens */
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
 
-    <div id="pageLoader">
-        <div class="pageSpinner"></div>
-        Diving into the soundscape...
-    </div>
+<div id="pageLoader">
+    <div class="pageSpinner"></div>
+    Diving into the soundscape...
+</div>
 
-    <header>
-        <h1>ZCVKJ Soundhub</h1>
-        <nav>
-            <ul>
-                <li><a href="homepage.html">Home</a></li>
-                <li><a href="cart.html">Cart</a></li>
-                <li><a href="checkout.html">Checkout</a></li>
-                <li><a href="feedback.html">Feedback</a></li>
-                <li><a href="login.html">Login </a></li>    
-            </ul>
-            <img src="ZCVKJ LOGOG.png" alt="ZCVKJ Logo" class="header-logo">
-        </nav>
-    </header>
+<header>
+    <h1>ZCVKJ Soundhub</h1>
+    <nav>
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="login.html">Login </a></li>    
+        </ul>
+        <img src="ZCVKJ LOGOG.png" alt="ZCVKJ Logo" class="header-logo">
+    </nav>
+</header>
 
-    <section id="home">
-        <h2>Welcome to ZCVKJ Soundhub</h2>
-        <p>Discover the best Soundtech for immersive sound experiences. Feel the music, not the wires.</p>
-    </section>
+<section id="home">
+    <h2>Welcome to ZCVKJ Soundhub</h2>
+    <p>Discover the best Soundtech for immersive sound experiences. Feel the music, not the wires.</p>
+</section>
 
     <section id="Headphones">
         <h2>Our Headphones</h2> 
@@ -565,54 +565,84 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 ZCVKJ Soundhub. All rights reserved.</p>
-    </footer>
+    <p>&copy; 2025 ZCVKJ Soundhub. All rights reserved.</p>
+</footer>
 
-    <div id="toast" class="toast">Item added to cart!</div>
-    
-    <script>
-       
-        window.addEventListener("load", () => {
-            const loader = document.getElementById("pageLoader");
-            if (loader) {
-                loader.style.opacity = "0";
-                setTimeout(() => {
-                    loader.style.display = "none";
-                }, 500); 
+<div id="toast" class="toast">Item added to cart!</div>
+
+<script>
+    window.addEventListener("load", () => {
+        const loader = document.getElementById("pageLoader");
+        if (loader) {
+            loader.style.opacity = "0";
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 500); 
+        }
+    });
+
+    // ======= CART LOGIC =======
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function updateCartCount() {
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        let cartCount = document.getElementById('cart-count');
+        if (cartCount) cartCount.textContent = count;
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Add-to-Cart Buttons
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.closest('.product');
+            const name = product.dataset.name;
+            let price = parseFloat(product.dataset.price.replace(/,/g, ''));
+            const quantity = parseInt(product.querySelector('.quantity').textContent);
+
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+                showToast(`Updated quantity: ${existingItem.quantity} × ${name}`);
+            } else {
+                cart.push({ name, price, quantity });
+                showToast(`${quantity} × ${name} added to cart!`);
             }
+
+            saveCart();
+            updateCartCount();
+
+            // Reset quantity to 1
+            product.querySelector('.quantity').textContent = '1';
+        });
+    });
+
+    // Quantity controls
+    document.querySelectorAll('.product').forEach(product => {
+        const decreaseBtn = product.querySelector('.decrease');
+        const increaseBtn = product.querySelector('.increase');
+        const quantitySpan = product.querySelector('.quantity');
+
+        decreaseBtn.addEventListener('click', () => {
+            let currentQuantity = parseInt(quantitySpan.textContent);
+            if (currentQuantity > 1) quantitySpan.textContent = currentQuantity - 1;
         });
 
-        
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', (e) => {
-               
-                const toast = document.getElementById('toast');
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
-
-            });
+        increaseBtn.addEventListener('click', () => {
+            let currentQuantity = parseInt(quantitySpan.textContent);
+            quantitySpan.textContent = currentQuantity + 1;
         });
-
-      
-        document.querySelectorAll('.product').forEach(product => {
-            const decreaseBtn = product.querySelector('.decrease');
-            const increaseBtn = product.querySelector('.increase');
-            const quantitySpan = product.querySelector('.quantity');
-
-            decreaseBtn.addEventListener('click', () => {
-                let currentQuantity = parseInt(quantitySpan.textContent);
-                if (currentQuantity > 1) {
-                    quantitySpan.textContent = currentQuantity - 1;
-                }
-            });
-
-            increaseBtn.addEventListener('click', () => {
-                let currentQuantity = parseInt(quantitySpan.textContent);
-                quantitySpan.textContent = currentQuantity + 1;
-            });
-        });
-    </script>
+    });
+</script>
 </body>
 </html>

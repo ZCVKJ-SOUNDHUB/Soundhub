@@ -1,0 +1,35 @@
+[
+    {
+    "name": "ZCVKJ Main Store",
+    "title" : "Store no. 1",
+    "description" : "Our main store located in the heart of the city, offering a wide range of products and services to meet your needs.",
+    "lat" : 8.366550765402987,  
+    "lng": 124.86502480463159,
+    "locationType": "Store"
+    },
+    {
+    "name": "ZCVKJ bracnch 2",
+    "title" : "Store no. 2",
+    "description" : "Our main store located in the heart of the city, offering a wide range of products and services to meet your needs.",
+    "lat" : 8.36748574905749,  
+    "lng": 124.86598030823114,
+    "locationType": "Store"
+    },
+    {
+    "name": "ZCVKJ bracnch 3",
+    "title" : "Store no. 3",
+    "description" : "Our main store located in the heart of the city, offering a wide range of products and services to meet your needs.",
+    "lat" : 8.365293046266807, 
+    "lng": 124.86451856612068,
+    "locationType": "Store"
+    },
+     {
+    "name": "ZCVKJ bracnch 4",
+    "title" : "Store no. 4",
+    "description" : "Our main store located in the heart of the city, offering a wide range of products and services to meet your needs.",
+    "lat" : 8.368078859856263,  
+    "lng": 124.86227723130914,
+    "locationType": "Store"
+    }
+
+]
