@@ -23,12 +23,20 @@
     "lng": 124.86451856612068,
     "locationType": "Store"
     },
-     {
+    {
     "name": "ZCVKJ bracnch 4",
     "title" : "Store no. 4",
     "description" : "Our main store located in the heart of the city, offering a wide range of products and services to meet your needs.",
     "lat" : 8.368078859856263,  
     "lng": 124.86227723130914,
+    "locationType": "Store"
+    },
+    {
+    "name": "ZCVKJ bracnch 5",
+    "title" : "Store no. 5",
+    "description" : "Our main store located in the heart of the city, offering a wide range of products and services to meet your needs.",
+    "lat" : 8.365643264187902,   
+    "lng": 124.86472006259501,
     "locationType": "Store"
     }
 
