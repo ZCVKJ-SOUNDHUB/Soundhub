@@ -46,6 +46,23 @@ a:hover { color: var(--accent-glow); }
     transition:0.3s;
 }
 .clear-cart-btn:hover { background-color: var(--accent-glow); }
+
+/* Checkout Button */
+.checkout-btn {
+    display:block;
+    margin:10px auto;
+    padding:12px 25px;
+    background-color: var(--success-green);
+    color:white;
+    font-weight:700;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    transition:0.3s;
+    text-align:center;
+    font-size:1rem;
+}
+.checkout-btn:hover { background-color:#2ea55f; }
 </style>
 </head>
 <body>
@@ -67,10 +84,13 @@ a:hover { color: var(--accent-glow); }
     </tbody>
 </table>
 
-<p class="total" id="cart-total">Total: $0.00</p>
+<p class="total" id="cart-total">Total: ₱0.00</p>
 <p id="empty-msg" style="display:none;">Your cart is empty.</p>
 
 <button class="clear-cart-btn" id="clear-cart">Clear Cart</button>
+
+<!-- ✅ Added Checkout Button -->
+<button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
 
 <a href="homepage.html" class="back-home">← Back to Home</a>
 
@@ -91,12 +111,14 @@ function renderCart() {
         totalElem.style.display = 'none';
         emptyMsg.style.display = 'block';
         document.getElementById('clear-cart').style.display = 'none';
+        document.getElementById('checkout-btn').style.display = 'none';
         return;
     } else {
         document.getElementById('cart-table').style.display = 'table';
         totalElem.style.display = 'block';
         emptyMsg.style.display = 'none';
         document.getElementById('clear-cart').style.display = 'block';
+        document.getElementById('checkout-btn').style.display = 'block';
     }
 
     let totalPrice = 0;
@@ -108,7 +130,7 @@ function renderCart() {
 
         row.innerHTML = `
             <td>${item.name}</td>
-            <td>$${item.price.toFixed(2)}</td>
+            <td>₱${item.price.toFixed(2)}</td>
             <td>
                 <div class="quantity-controls">
                     <button class="decrease" data-index="${index}">−</button>
@@ -116,13 +138,13 @@ function renderCart() {
                     <button class="increase" data-index="${index}">+</button>
                 </div>
             </td>
-            <td>$${itemTotal.toFixed(2)}</td>
+            <td>₱${itemTotal.toFixed(2)}</td>
             <td><span class="remove-item" data-index="${index}">Remove</span></td>
         `;
         tbody.appendChild(row);
     });
 
-    totalElem.textContent = `Total: $${totalPrice.toFixed(2)}`;
+    totalElem.textContent = `Total: ₱${totalPrice.toFixed(2)}`;
 
     // Remove item
     document.querySelectorAll('.remove-item').forEach(btn => {
@@ -161,6 +183,11 @@ document.getElementById('clear-cart').addEventListener('click', () => {
     cart = [];
     saveCart();
     renderCart();
+});
+
+// ✅ Checkout button → checkout.html
+document.getElementById('checkout-btn').addEventListener('click', () => {
+    window.location.href = 'checkout.html';
 });
 
 renderCart();
