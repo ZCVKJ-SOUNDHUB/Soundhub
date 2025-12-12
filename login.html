@@ -3,55 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZCVKJ Soundhub - Login</title>
-    <link rel="stylesheet" href="Login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Login - ZCVKJ Soundhub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-purple: #0d001a;
+            --medium-purple: #1A0033;
+            --light-purple: #A66CFF;
+            --accent-glow: #F3E8FF;
+            --text-color: #E0E0E0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-purple);
+            background-image: radial-gradient(circle at top right, #1a0033, #0d001a);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Login Card --- */
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            background: rgba(26, 0, 51, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(166, 108, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .login-header h2 {
+            color: var(--light-purple);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .login-header p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+
+        /* --- Form Styling --- */
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: var(--light-purple);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(13, 0, 26, 0.6);
+            border: 1px solid rgba(166, 108, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--light-purple);
+            box-shadow: 0 0 10px rgba(166, 108, 255, 0.2);
+        }
+
+        /* --- Login Button --- */
+        #login-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            background: var(--light-purple);
+            color: var(--dark-purple);
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        #login-btn:hover {
+            background: var(--accent-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(166, 108, 255, 0.4);
+        }
+
+        /* --- Links --- */
+        .footer-links {
+            margin-top: 25px;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a {
+            color: var(--light-purple);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+            color: var(--accent-glow);
+        }
+
+        /* Music Icon Decor */
+        .music-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>ZCVKJ Soundhub</h1>
-        <nav>
-            <ul></ul>
-        </nav>
-    </header>
 
-    <!-- LOGIN SECTION -->
-    <section id="login">
-        <h2>Login to Your Account</h2>
+    <div class="login-container">
+        <div class="music-icon">🎵</div>
+        <div class="login-header">
+            <h2>Welcome Back</h2>
+            <p>Ready to jump back into the rhythm?</p>
+        </div>
+
         <form id="login-form">
-            <label for="username">Username:</label>
-            <input type="text" id="username" required autocomplete="username">
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" required autocomplete="current-password">
-            
-            <button type="submit">Login</button>
+            <div class="form-group">
+                <label for="username">Username or Email</label>
+                <input type="text" id="username" placeholder="Enter your credentials" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" id="login-btn">Sign In</button>
         </form>
 
-        <p>Don't have an account? <a href="#" id="show-signup">Sign up here</a></p>
-        <p id="login-status"></p>
-    </section>
+        <div class="footer-links">
+            <p>Don't have an account? <a href="#">Create SoundID</a></p>
+            <p><a href="homepage.html">Continue as Guest</a></p>
+        </div>
+    </div>
 
-    <!-- SIGNUP SECTION -->
-    <section id="signup" style="display: none;">
-        <h2>Create an Account</h2>
-        <form id="signup-form">
-            <label for="new-username">Username:</label>
-            <input type="text" id="new-username" required>
-
-            <label for="new-password">Password:</label>
-            <input type="password" id="new-password" required>
-
-            <label for="confirm-password">Confirm Password:</label>
-            <input type="password" id="confirm-password" required>
-
-            <button type="submit">Sign Up</button>
-        </form>
-
-        <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
-        <p id="signup-status"></p>
-    </section>
-
+    <script>
+        // Insert your existing login logic here
+        const loginForm = document.getElementById('login-form');
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Example redirection (Replace this with your actual authentication logic)
+            const username = document.getElementById('username').value;
+            console.log("Logging in as:", username);
+            
+            // Redirecting to home after "logic"
+            window.location.href = "homepage.html";
+        });
+    </script>
+</body>
+</html>
     <!-- External Script -->
     <script src="script.js"></script>
 </body>

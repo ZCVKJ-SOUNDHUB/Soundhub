@@ -4,21 +4,84 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome to ZCVKJ Soundhub</title>
-     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
-       
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d001a;
+            color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Music Loader Container --- */
+        #loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(13, 0, 26, 0.95);
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* --- Equalizer Animation --- */
+        .equalizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+            height: 50px;
+            margin-bottom: 20px;
+        }
+
+        .bar {
+            width: 8px;
+            background: #A66CFF; /* Your light purple theme */
+            border-radius: 4px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        /* Each bar has a different height and animation delay to look like music */
+        .bar:nth-child(1) { height: 20px; animation-delay: 0.1s; }
+        .bar:nth-child(2) { height: 40px; animation-delay: 0.3s; }
+        .bar:nth-child(3) { height: 25px; animation-delay: 0.2s; }
+        .bar:nth-child(4) { height: 45px; animation-delay: 0.4s; }
+        .bar:nth-child(5) { height: 30px; animation-delay: 0.1s; }
+
+        @keyframes bounce {
+            0%, 100% { height: 15px; }
+            50% { height: 50px; }
+        }
+
+        /* --- Logo & Buttons --- */
+        .logo-container { text-align: center; cursor: pointer; }
+        .logo { font-size: 3rem; font-weight: 800; letter-spacing: 2px; }
+        .slogan { font-weight: 300; opacity: 0.7; }
     </style>
 </head>
 <body class="home">
 
     <div id="loader">
-        <div class="spinner"></div>
-        Diving into the soundscape...
+        <div class="equalizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar) "></div>
+            <div class="bar"></div>
+        </div>
+        <div style="font-weight: 600; letter-spacing: 1px;">MIXING THE VIBE...</div>
     </div>
 
-    <div class="logo-container">
-        <div class="logo" id="welcomeBtn">ZCVKJ Soundhub</div>
+    <div class="logo-container" id="welcomeBtn">
+        <div class="logo">ZCVKJ Soundhub</div>
         <div class="slogan">The rhythm starts now.</div>
     </div>
 
@@ -27,20 +90,18 @@
         const loader = document.getElementById("loader");
 
         welcomeBtn.addEventListener("click", () => {
-            
-            loader.style.opacity = "0";
+            // Show the loader
             loader.style.display = "flex";
 
-           
+            // Trigger fade in
             setTimeout(() => {
                 loader.style.opacity = "1";
             }, 10); 
             
-           
+            // Redirect after the soundhub animation "loads"
             setTimeout(() => {
-         
                 window.location.href = "login.html";
-            }, 1800); 
+            }, 2200); // Slightly longer to enjoy the animation
         });
     </script>
 </body>

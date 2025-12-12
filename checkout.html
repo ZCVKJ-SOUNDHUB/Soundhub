@@ -4,23 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - ZCVKJ Soundhub</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-purple: #0d001a;
+            --medium-purple: #1A0033;
+            --light-purple: #A66CFF;
+            --accent-glow: #F3E8FF;
+            --success-green: #38c172;
+            --text-color: #E0E0E0;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--dark-purple); 
+            color: var(--text-color); 
+            margin: 0; 
+            padding: 20px; 
+        }
+
+        header { text-align: center; margin-bottom: 40px; }
+        h1 { color: var(--light-purple); font-size: 2.5rem; }
+        
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; }
+        nav a { color: var(--text-color); text-decoration: none; font-weight: 500; }
+        nav a:hover { color: var(--light-purple); }
+
+        .checkout-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--medium-purple);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--light-purple);
+            box-shadow: 0 0 20px rgba(166, 108, 255, 0.2);
+        }
+
+        h2, h3 { color: var(--light-purple); }
+        h3 { margin-top: 25px; font-size: 1.1rem; border-bottom: 1px solid #333; padding-bottom: 5px; }
+
+        label { display: block; margin-top: 15px; font-size: 0.9rem; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            background: #0d001a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+        }
+
+        input:focus { outline: none; border-color: var(--light-purple); }
+
+        .card-details { display: flex; gap: 15px; }
+        .card-details div { flex: 1; }
+
+        #confirm-btn {
+            width: 100%;
+            margin-top: 30px;
+            padding: 15px;
+            background: var(--light-purple);
+            color: var(--dark-purple);
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        #confirm-btn:hover {
+            background: var(--accent-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(166, 108, 255, 0.4);
+        }
+
+        #order-summary {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>ZCVKJ Soundhub</h1>
+        <h1><a href="homepage.html">ZCVKJ Soundhub</a></h1>
         <nav>
             <ul>
-                <li><a href="homepage.html">Home</a></li>
-                <li><a href="cart.html">Cart</a></li>
-                <li><a href="feedback.html">Feedback</a></li> </ul>
+               
+                <li><a href="cart.html"> back to Cart ↻</a></li>
+                
+            </ul>
         </nav>
     </header>
 
     <main id="checkout-main">
         <section class="checkout-container">
             <h2>Complete Your Purchase 💳</h2>
+            
+            <div id="order-summary">Total Amount: $0.00</div>
+
             <form id="checkout-form">
                 <h3>Shipping Information</h3>
                 <label for="address">Shipping Address:</label>
@@ -49,6 +135,43 @@
         </section>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        // 1. Calculate and show the total from localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const summaryDiv = document.getElementById('order-summary');
+        
+        let total = 0;
+        cart.forEach(item => {
+            total += item.price * item.quantity;
+        });
+        summaryDiv.textContent = `Total Amount: $${total.toFixed(2)}`;
+
+        // 2. Handle the form submission
+        const checkoutForm = document.getElementById('checkout-form');
+
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevents page from refreshing
+
+            // Simulate processing
+            const btn = document.getElementById('confirm-btn');
+            btn.textContent = "Processing...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                alert("🎉 Payment Successful! Your order has been placed.");
+                
+                // 3. Clear the cart data
+                localStorage.removeItem('cart');
+
+                // 4. Redirect to home or a success page
+                window.location.href = "homepage.html";
+            }, 2000);
+        });
+
+        // 5. Bonus: Simple card number formatting
+        document.getElementById('card-number').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
+        });
+    </script>
 </body>
 </html>

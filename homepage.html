@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,79 +19,322 @@
             --radius: 8px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', sans-serif; background-color: #0d001a; color: var(--text-color); line-height: 1.6; }
-        a { text-decoration: none; color: var(--light-purple); transition: color 0.3s ease; }
-        a:hover { color: var(--accent-glow); }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d001a;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--light-purple);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-glow);
+        }
 
         /* --- HEADER & NAVIGATION --- */
         header {
-            position: sticky; top: 0; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; background: var(--dark-purple); box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: var(--dark-purple);
+            box-shadow: var(--shadow);
         }
-        header h1 { font-size: 1.8rem; font-weight: 800; color: var(--light-purple); text-shadow: 0 0 5px var(--light-purple); }
-        nav { display: flex; align-items: center; gap: 20px; }
-        nav ul { list-style: none; display: flex; gap: 25px; flex-wrap: wrap; }
-        nav a { font-weight: 500; padding: 5px 10px; border-radius: 4px; transition: background-color 0.3s; }
-        nav a:hover { background-color: var(--medium-purple); color: var(--accent-glow); }
-        .header-logo { width: 40px; height: 40px; object-fit: contain; border-radius: 50%; }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--light-purple);
+            text-shadow: 0 0 5px var(--light-purple);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: var(--medium-purple);
+            color: var(--accent-glow);
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
 
         /* --- HERO SECTION --- */
         #home {
             text-align: center;
             padding: 80px 20px;
-            background: linear-gradient(rgba(26,0,51,0.8), rgba(77,26,127,0.5)), url('hero-background.jpg'); 
+            background: linear-gradient(rgba(26, 0, 51, 0.8), rgba(77, 26, 127, 0.5)), url('hero-background.jpg');
             background-size: cover;
             background-position: center;
             border-bottom: 5px solid var(--light-purple);
         }
-        #home h2 { font-size: clamp(2rem,5vw,3.5rem); color: var(--accent-glow); margin-bottom: 10px; text-shadow:0 0 10px var(--light-purple);}
-        #home p { font-size: clamp(1rem,2vw,1.25rem); color: var(--text-color); }
+
+        #home h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--light-purple);
+        }
+
+        #home p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-color);
+        }
 
         /* --- SECTIONS & GRID LAYOUT --- */
-        section { padding: 40px 5%; }
-        section h2 {
-            font-size: 2rem; text-align:center; margin-bottom:30px;
-            color: var(--light-purple); border-bottom: 2px solid var(--medium-purple); padding-bottom: 10px;
+        section {
+            padding: 40px 5%;
         }
-        .product-list { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap:30px; }
-        .product { background: var(--dark-purple); border-radius: var(--radius); padding:20px; text-align:center; box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .product:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(166,108,255,0.3); border:1px solid var(--light-purple);}
-        .product img { width:100%; height:200px; object-fit:contain; border-radius:var(--radius); margin-bottom:15px; background-color:#2c0054; }
-        .product h3 { color: var(--accent-glow); margin-bottom:5px; font-weight:700; font-size:1.2rem; }
-        .product p { color: var(--light-purple); font-size:1.5rem; font-weight:800; margin-bottom:15px; }
+
+        section h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--light-purple);
+            border-bottom: 2px solid var(--medium-purple);
+            padding-bottom: 10px;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product {
+            background: var(--dark-purple);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(166, 108, 255, 0.3);
+            border: 1px solid var(--light-purple);
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+            background-color: #2c0054;
+        }
+
+        .product h3 {
+            color: var(--accent-glow);
+            margin-bottom: 5px;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .product p {
+            color: var(--light-purple);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
 
         /* --- BUTTONS & CONTROLS --- */
-        .add-to-cart { background-color: var(--light-purple); color: var(--dark-purple); border:none; padding:10px 20px; border-radius:50px; font-size:1rem; font-weight:700; cursor:pointer; transition: background-color 0.3s ease, transform 0.1s ease; width:100%; margin-top:15px; }
-        .add-to-cart:hover { background-color: var(--accent-glow); transform:translateY(-2px); }
-        .quantity-controls { display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:15px; }
-        .quantity-controls button { background-color: var(--medium-purple); color: var(--accent-glow); border:none; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:1.2rem; line-height:1; transition:background-color 0.2s; }
-        .quantity-controls button:hover { background-color: var(--light-purple); color: var(--dark-purple); }
-        .quantity { font-size:1.1rem; font-weight:500; color: var(--text-color); }
+        .add-to-cart {
+            background-color: var(--light-purple);
+            color: var(--dark-purple);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .quantity-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quantity-controls button {
+            background-color: var(--medium-purple);
+            color: var(--accent-glow);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+            transition: background-color 0.2s;
+        }
+
+        .quantity-controls button:hover {
+            background-color: var(--light-purple);
+            color: var(--dark-purple);
+        }
+
+        .quantity {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
 
         /* --- PRELOADER --- */
-        #pageLoader { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(26,0,51,0.95); display:flex; justify-content:center; align-items:center; flex-direction:column; gap:20px; color:var(--light-purple); font-size:1.5rem; font-weight:600; backdrop-filter: blur(5px); z-index:2000; transition: opacity 0.5s ease;}
-        .pageSpinner { width:80px; height:80px; border:8px solid var(--medium-purple); border-top:8px solid var(--light-purple); border-radius:50%; animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;}
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes glow { from { box-shadow:0 0 5px var(--light-purple);} to { box-shadow:0 0 20px var(--light-purple); } }
+        #pageLoader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 0, 51, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            color: var(--light-purple);
+            font-size: 1.5rem;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            transition: opacity 0.5s ease;
+        }
+
+        .pageSpinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid var(--medium-purple);
+            border-top: 8px solid var(--light-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px var(--light-purple);
+            }
+
+            to {
+                box-shadow: 0 0 20px var(--light-purple);
+            }
+        }
 
         /* --- TOAST --- */
-        .toast { visibility:hidden; min-width:250px; margin-left:-125px; background-color:var(--success-green); color:var(--dark-purple); text-align:center; border-radius:8px; padding:16px; position:fixed; z-index:2001; left:50%; bottom:30px; font-size:17px; font-weight:600; box-shadow:0 0 15px rgba(56,193,114,0.8); transition: visibility 0.3s, opacity 0.3s; opacity:0; }
-        .toast.show { visibility:visible; opacity:1; }
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: var(--success-green);
+            color: var(--dark-purple);
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 2001;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(56, 193, 114, 0.8);
+            transition: visibility 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
 
         /* --- RESPONSIVENESS --- */
         @media (max-width:768px) {
-            header { flex-direction:column; padding:15px; gap:10px;}
-            header h1 { font-size:1.5rem;}
-            nav ul { justify-content:center; gap:10px;}
-            nav { width:100%; justify-content:space-between;}
-            .header-logo { order:-1;}
-            #home { padding:50px 20px;}
-            .product-list { grid-template-columns:1fr;}
+            header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 10px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .header-logo {
+                order: -1;
+            }
+
+            #home {
+                padding: 50px 20px;
+            }
+
+            .product-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <div id="pageLoader">
@@ -99,17 +343,16 @@
     </div>
 
     <header>
-        <h1>ZCVKJ Soundhub</h1>
+        <h1><a href="homepage.html">ZCVKJ Soundhub</h1>
         <nav>
             <ul>
-                <li><a href="homepage.html">Home</a></li>
+                
                 <li><a href="cart.html">Cart</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
-                <li><a href="feedback.html">Feedback</a></li>
-                <li><a href="login.html">Logout </a></li>
-                <li><a href="About.html">About</a></li>   
+                <li><a href="About.html">About</a></li>
+                  <li><a href="login.html">Logout </a></li>
             </ul>
-            <img src="ZCVKJ LOGOG.png" alt="ZCVKJ Logo" class="header-logo">
+            
         </nav>
     </header>
 
@@ -119,7 +362,7 @@
     </section>
 
     <section id="Headphones">
-        <h2>Our Headphones</h2> 
+        <h2>Our Headphones</h2>
         <div class="product-list">
             <div class="product" data-name="Wireless Headphones" data-price="699.00">
                 <img src="Headphone1.jpg" alt="Wireless Headphones">
@@ -132,7 +375,7 @@
                 </div>
                 <button class="add-to-cart">Add to Cart</button>
             </div>
-            
+
             <div class="product" data-name="Wired Headphones - Black" data-price="599.00">
                 <img src="Headphone2.jpg" alt="Wired Headphones - Black">
                 <h3>Wired Headphones - Black</h3>
@@ -144,7 +387,7 @@
                 </div>
                 <button class="add-to-cart">Add to Cart</button>
             </div>
-            
+
             <div class="product" data-name="Gaming Headphones - White" data-price="899.00">
                 <img src="Headphone3.jpg" alt="Gaming Headphones - White">
                 <h3>Gaming Headphones - White</h3>
@@ -172,7 +415,8 @@
     </section>
 
     <section id="Airpods">
-        <h2>Our Earbuds</h2> <div class="product-list">
+        <h2>Our Earbuds</h2>
+        <div class="product-list">
             <div class="product" data-name="Airpods Pro" data-price="899.00">
                 <img src="Airpods 1.jpg" alt="Airpods Pro">
                 <h3>Pro ANC Earbuds</h3>
@@ -208,7 +452,7 @@
                 </div>
                 <button class="add-to-cart">Add to Cart</button>
             </div>
-        
+
             <div class="product" data-name="Airpods 3rd Gen" data-price="149.99">
                 <img src="Airpods 4.jpg" alt="Airpods 3rd Gen">
                 <h3>Sport Earbuds</h3>
@@ -237,7 +481,7 @@
                 </div>
                 <button class="add-to-cart">Add to Cart</button>
             </div>
-            
+
             <div class="product" data-name="Wired Headset 2nd Gen - White" data-price="399.00">
                 <img src="Headset 2.jpg" alt="Wired Headset 2nd Gen">
                 <h3>Wired Headset (2nd Gen)</h3>
@@ -290,7 +534,7 @@
                 </div>
                 <button class="add-to-cart">Add to Cart</button>
             </div>
-            
+
             <div class="product" data-name="Mini Computer Speakers - Black" data-price="399.00">
                 <img src="Speaker 2.jpg" alt="Mini Computer Speakers - Black">
                 <h3>Desktop Speakers - Black</h3>
@@ -329,77 +573,78 @@
         </div>
     </section>
 
-<footer>
-    <p>&copy; 2025 ZCVKJ Soundhub. All rights reserved.</p>
-</footer>
+    <footer>
+        <p>&copy; 2025 ZCVKJ Soundhub. All rights reserved.</p>
+    </footer>
 
-<div id="toast" class="toast">Item added to cart!</div>
+    <div id="toast" class="toast">Item added to cart!</div>
 
-<script>
-window.addEventListener("load", () => {
-    const loader = document.getElementById("pageLoader");
-    if (loader) { loader.style.opacity = "0"; setTimeout(() => { loader.style.display = "none"; }, 500); }
-    updateCartCount(); // Update cart count on page load
-});
+    <script>
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("pageLoader");
+            if (loader) { loader.style.opacity = "0"; setTimeout(() => { loader.style.display = "none"; }, 500); }
+            updateCartCount(); // Update cart count on page load
+        });
 
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+        function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
 
-function updateCartCount() {
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const cartCount = document.getElementById('cart-count');
-    if (cartCount) cartCount.textContent = count;
-}
-
-function showToast(message) {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    toast.textContent = message;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-}
-
-// Add-to-Cart Buttons
-document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', () => {
-        const product = button.closest('.product');
-        const name = product.dataset.name;
-        const price = parseFloat(product.dataset.price.replace(/,/g,''));
-        const quantity = parseInt(product.querySelector('.quantity').textContent);
-
-        const existingItem = cart.find(item => item.name === name);
-        if (existingItem) {
-            existingItem.quantity += quantity;
-            showToast(`Updated quantity: ${existingItem.quantity} × ${name}`);
-        } else {
-            cart.push({ name, price, quantity });
-            showToast(`${quantity} × ${name} added to cart!`);
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) cartCount.textContent = count;
         }
 
-        saveCart();
-        updateCartCount();
-        product.querySelector('.quantity').textContent = '1';
-    });
-});
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
 
-// Quantity controls
-document.querySelectorAll('.product').forEach(product => {
-    const decreaseBtn = product.querySelector('.decrease');
-    const increaseBtn = product.querySelector('.increase');
-    const quantitySpan = product.querySelector('.quantity');
+        // Add-to-Cart Buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const product = button.closest('.product');
+                const name = product.dataset.name;
+                const price = parseFloat(product.dataset.price.replace(/,/g, ''));
+                const quantity = parseInt(product.querySelector('.quantity').textContent);
 
-    decreaseBtn.addEventListener('click', () => {
-        let currentQuantity = parseInt(quantitySpan.textContent);
-        if (currentQuantity > 1) quantitySpan.textContent = currentQuantity - 1;
-    });
+                const existingItem = cart.find(item => item.name === name);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                    showToast(`Updated quantity: ${existingItem.quantity} × ${name}`);
+                } else {
+                    cart.push({ name, price, quantity });
+                    showToast(`${quantity} × ${name} added to cart!`);
+                }
 
-    increaseBtn.addEventListener('click', () => {
-        let currentQuantity = parseInt(quantitySpan.textContent);
-        quantitySpan.textContent = currentQuantity + 1;
-    });
-});
-</script>
+                saveCart();
+                updateCartCount();
+                product.querySelector('.quantity').textContent = '1';
+            });
+        });
+
+        // Quantity controls
+        document.querySelectorAll('.product').forEach(product => {
+            const decreaseBtn = product.querySelector('.decrease');
+            const increaseBtn = product.querySelector('.increase');
+            const quantitySpan = product.querySelector('.quantity');
+
+            decreaseBtn.addEventListener('click', () => {
+                let currentQuantity = parseInt(quantitySpan.textContent);
+                if (currentQuantity > 1) quantitySpan.textContent = currentQuantity - 1;
+            });
+
+            increaseBtn.addEventListener('click', () => {
+                let currentQuantity = parseInt(quantitySpan.textContent);
+                quantitySpan.textContent = currentQuantity + 1;
+            });
+        });
+    </script>
 
 </body>
+
 </html>
