@@ -82,10 +82,30 @@
         }
 
         #order-summary {
-            text-align: center;
+            text-align: left;
             margin-bottom: 20px;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            background: #1A0033; 
+            padding: 15px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        #order-summary ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0 0 10px 0;
+        }
+
+        #order-summary li {
+            padding: 4px 0;
+        }
+
+        #order-summary .total {
+            color: #A66CFF;
+            margin-top: 10px;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -94,9 +114,7 @@
         <h1><a href="homepage.html">ZCVKJ Soundhub</a></h1>
         <nav>
             <ul>
-               
                 <li><a href="cart.html"> back to Cart ↻</a></li>
-                
             </ul>
         </nav>
     </header>
@@ -105,7 +123,12 @@
         <section class="checkout-container">
             <h2>Complete Your Purchase 💳</h2>
             
-            <div id="order-summary">Total Amount: $0.00</div>
+            <!-- ORDER SUMMARY -->
+            <div id="order-summary">
+                <h3>Order Summary</h3>
+                <ul id="summary-list"></ul>
+                <div class="total" id="summary-total"></div>
+            </div>
 
             <form id="checkout-form">
                 <h3>Shipping Information</h3>
@@ -136,39 +159,40 @@
     </main>
 
     <script>
-        // 1. Calculate and show the total from localStorage
+        // Load cart from localStorage
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const summaryDiv = document.getElementById('order-summary');
-        
+        const summaryList = document.getElementById('summary-list');
+        const summaryTotal = document.getElementById('summary-total');
+
         let total = 0;
+
         cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} x${item.quantity} – ₱${(item.price * item.quantity).toFixed(2)}`;
+            summaryList.appendChild(li);
             total += item.price * item.quantity;
         });
-        summaryDiv.textContent = `Total Amount: $${total.toFixed(2)}`;
 
-        // 2. Handle the form submission
+        summaryTotal.textContent = `Total: ₱${total.toFixed(2)}`;
+
+        // Handle form submission
         const checkoutForm = document.getElementById('checkout-form');
 
         checkoutForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevents page from refreshing
+            e.preventDefault();
 
-            // Simulate processing
             const btn = document.getElementById('confirm-btn');
             btn.textContent = "Processing...";
             btn.disabled = true;
 
             setTimeout(() => {
                 alert("🎉 Payment Successful! Your order has been placed.");
-                
-                // 3. Clear the cart data
                 localStorage.removeItem('cart');
-
-                // 4. Redirect to home or a success page
                 window.location.href = "homepage.html";
             }, 2000);
         });
 
-        // 5. Bonus: Simple card number formatting
+        // Card number formatting
         document.getElementById('card-number').addEventListener('input', function (e) {
             e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
         });
