@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome to ZCVKJ Soundhub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
+        /*
+         * --- GLOBAL STYLES & BACKGROUND ---
+         */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #0d001a;
             color: white;
             margin: 0;
             display: flex;
@@ -16,15 +20,85 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+
+            /* BACKGROUND IMAGE & EFFECTS */
+            background: #0d001a url('abstract-purple-bg.jpg') no-repeat center center/cover;
+            background-attachment: fixed;
         }
 
-        /* --- Music Loader Container --- */
+        /*
+         * --- MUSIC TOGGLE BUTTON STYLES ---
+         */
+        #music-toggle {
+            position: fixed; /* Position relative to the viewport */
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #A66CFF; /* Purple color */
+            cursor: pointer;
+            z-index: 999; /* Ensure it's above everything else */
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        #music-toggle:hover {
+            color: #fff; /* White on hover */
+            transform: scale(1.1);
+        }
+
+        /*
+         * --- ENTRANCE ANIMATION KEYFRAMES ---
+         */
+        @keyframes fadeInScale {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.95);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /*
+         * --- LOGO & SLOGAN STYLES (UNCHANGED) ---
+         */
+        .logo-container { 
+            text-align: center; 
+            cursor: pointer; 
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+        .logo-container:active {
+            transform: scale(1.02);
+        }
+        .logo { 
+            font-size: 6rem;
+            font-weight: 800; 
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(166, 108, 255, 0.5);
+            animation: fadeInScale 1s ease-out forwards;
+        }
+        .slogan { 
+            font-weight: 300; 
+            font-size: 1.8rem;
+            opacity: 0.7;
+            margin-top: -15px;
+            animation: fadeInScale 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        /*
+         * --- MUSIC LOADER (UNCHANGED) ---
+         */
         #loader {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: rgba(13, 0, 26, 0.95);
-            display: none; /* Hidden by default */
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -32,8 +106,7 @@
             opacity: 0;
             transition: opacity 0.5s ease;
         }
-
-        /* --- Equalizer Animation --- */
+        /* (Equalizer styles follow, omitted here for brevity but are in the final code block) */
         .equalizer {
             display: flex;
             align-items: flex-end;
@@ -41,40 +114,40 @@
             height: 50px;
             margin-bottom: 20px;
         }
-
         .bar {
             width: 8px;
-            background: #A66CFF; /* Your light purple theme */
+            background: #A66CFF;
             border-radius: 4px;
             animation: bounce 1s ease-in-out infinite;
         }
-
-        /* Each bar has a different height and animation delay to look like music */
         .bar:nth-child(1) { height: 20px; animation-delay: 0.1s; }
         .bar:nth-child(2) { height: 40px; animation-delay: 0.3s; }
         .bar:nth-child(3) { height: 25px; animation-delay: 0.2s; }
         .bar:nth-child(4) { height: 45px; animation-delay: 0.4s; }
         .bar:nth-child(5) { height: 30px; animation-delay: 0.1s; }
-
         @keyframes bounce {
             0%, 100% { height: 15px; }
             50% { height: 50px; }
         }
-
-        /* --- Logo & Buttons --- */
-        .logo-container { text-align: center; cursor: pointer; }
-        .logo { font-size: 3rem; font-weight: 800; letter-spacing: 2px; }
-        .slogan { font-weight: 300; opacity: 0.7; }
     </style>
 </head>
 <body class="home">
+    
+    <div id="music-toggle">
+        <i class="fas fa-volume-mute" id="music-icon"></i> 
+    </div>
+
+    <audio id="background-music" loop muted>
+        <source src="music/BoyThrob.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <div id="loader">
         <div class="equalizer">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
-            <div class="bar) "></div>
+            <div class="bar"></div>
             <div class="bar"></div>
         </div>
         <div style="font-weight: 600; letter-spacing: 1px;">MIXING THE VIBE...</div>
@@ -88,21 +161,61 @@
     <script>
         const welcomeBtn = document.getElementById("welcomeBtn");
         const loader = document.getElementById("loader");
+        const music = document.getElementById("background-music");
+        const musicToggle = document.getElementById("music-toggle");
+        const musicIcon = document.getElementById("music-icon");
 
+        // --- Music Toggle Logic ---
+        musicToggle.addEventListener("click", () => {
+            if (music.paused || music.muted) {
+                // If paused or muted, try to play and unmute
+                music.muted = false; // Unmute first
+                music.play().then(() => {
+                    // Success: Update icon to Playing state
+                    musicIcon.classList.remove('fa-volume-mute');
+                    musicIcon.classList.add('fa-volume-up');
+                }).catch(error => {
+                    // Handle case where play() fails (rare after user interaction)
+                    console.warn("Audio Playback Error:", error);
+                    alert("Click anywhere on the screen first, then try the music button!");
+                });
+            } else {
+                // If playing, pause and update icon to Muted state
+                music.pause();
+                musicIcon.classList.remove('fa-volume-up');
+                musicIcon.classList.add('fa-volume-mute');
+            }
+        });
+
+        // --- Main Entrance Logic (Only Redirection) ---
         welcomeBtn.addEventListener("click", () => {
+            
+            // If music is paused, start it (optional, but ensures music plays if the user ignores the toggle)
+            if (music.paused && !music.muted) {
+                music.play().catch(e => console.log("Music play failed on entrance click.", e));
+            }
+            
+            // Start the transition sequence
+            startTransition();
+        });
+
+        function startTransition() {
+            // Hide the welcome text instantly for clean transition
+            welcomeBtn.style.display = 'none'; 
+            
             // Show the loader
             loader.style.display = "flex";
 
             // Trigger fade in
             setTimeout(() => {
                 loader.style.opacity = "1";
-            }, 10); 
+            }, 10);
             
             // Redirect after the soundhub animation "loads"
             setTimeout(() => {
                 window.location.href = "login.html";
-            }, 2200); // Slightly longer to enjoy the animation
-        });
+            }, 2200);
+        }
     </script>
 </body>
 </html>
